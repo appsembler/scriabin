@@ -1,2 +1,36 @@
 ---
-# tasks file for scriabin
+
+- name: install certain python modules for scriabin
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    virtualenv: "{{ scriabin_ve }}"
+    virtualenv_python: "{{ scriabin_python_version }}"
+    state: present
+  with_items:
+    - {name: prometheus_client, version: "{{ scriabin_prometheus_client_version }}"}
+    - {name: pygtail, version: "{{ scriabin_pygtail_version }}"}
+    - {name: python-dateutil, version: "{{ scriabin_dateutil_version }}"}
+  tags: ['scriabin', 'scriabin:install']
+
+- name: Copy script
+  copy:
+    src: scriabin.py
+    dest: "{{ scriabin_root }}scriabin"
+    owner: www-data
+    mode: 0755
+  tags: ['scriabin', 'scriabin:install']
+
+- name: Full script
+  template:
+    src: run_scriabin.sh.j2
+    dest: "{{ scriabin_root }}run_scriabin.sh"
+    mode: 0775
+  tags: ['scriabin', 'scriabin:install']
+
+- name: Create cron job for Scriabin
+  cron:
+    name: "Scriabin"
+    user: www-data
+    job: "{{ scriabin_root }}run_scriabin.sh"
+  tags: ['scriabin', 'scriabin:install']

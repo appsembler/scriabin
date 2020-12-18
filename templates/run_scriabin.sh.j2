@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export SCRIABIN_PROJECT="{{ scriabin_project }}"
+export SCRIABIN_SLOW_THRESHOLD="{{ scriabin_slow_threshold }}"
+export SCRIABIN_PUSHGATEWAY="{{ scriabin_pushgateway }}"
+export SCRIABIN_SKIP_PATHS="{{ scriabin_ignore_paths }}"
+
+{% for app in scriabin_apps %}
+export SCRIABIN_LOG_FILE="{{ scriabin_logs_dir }}access_{{ app }}_json.log"
+export SCRIABIN_APP="{{ app }}"
+{{ scriabin_ve }}/bin/python3 {{ scriabin_root }}scriabin
+{% endfor %}

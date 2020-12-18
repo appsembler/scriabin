@@ -1,2 +1,29 @@
 ---
-# defaults file for scriabin
+
+scriabin_project: '{{ COMMON_DEPLOYMENT|default("project") }}-{{ COMMON_RELEASE|default("release")}}-{{ COMMON_ENVIRONMENT|default("staging") }}'
+
+# we have `stage-pushgateway` and `pushgateway` setup, and we need to
+# map `staging` and `prod` to each of those respectively. This is the
+# best way I could figure out how to do it with just ansible/jinja2 filters:
+scriabin_prefix: "{{ COMMON_ENVIRONMENT|default('staging')|replace('prod', '')|replace('staging', 'stage-')}}"
+scriabin_pushgateway: "{{ scriabin_prefix }}pushgateway.infra.appsembler.com:9091"
+
+# requests that took longer than this many seconds are considered
+# "slow" for apdex calculation
+scriabin_slow_threshold: 0.4
+
+# don't include non-customer facing and static paths by default
+scriabin_ignore_paths: "/static/,/admin/,/hijack/,/favicon.ico"
+
+scriabin_logs_dir: /edx/var/log/nginx/
+
+scriabin_apps:
+  - "cms"
+  - "lms"
+
+scriabin_root: /opt/scriabin/
+scriabin_ve: "{{ scriabin_root }}ve"
+scriabin_python_version: python3
+scriabin_prometheus_client_version: 0.2.0
+scriabin_pygtail_version: 0.8.0
+scriabin_dateutil_version: 2.8.1
