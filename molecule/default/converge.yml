@@ -2,17 +2,12 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: install system deps
+    - name: install ansible deps
       apt:
         name:
-          - cron
-          - python-apt
-          - python-pip
-          - python-setuptools
-          - python3-pip
-          - python3-setuptools
           - virtualenv
-        state: latest
+        state: present
+        update_cache: yes
     - name: "Include scriabin"
       include_role:
         name: "scriabin"
