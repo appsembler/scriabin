@@ -6,6 +6,8 @@ driver:
 platforms:
   - name: ubuntu2004
     image: geerlingguy/docker-ubuntu2004-ansible
+  - name: ubuntu1604
+    image: geerlingguy/docker-ubuntu1604-ansible
 provisioner:
   name: ansible
 verifier:
