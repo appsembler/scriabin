@@ -34,3 +34,17 @@
     user: www-data
     job: "{{ scriabin_root }}run_scriabin.sh"
   tags: ['scriabin', 'scriabin:install']
+
+# the /var/lib/node_exporter directory is only writable by users
+# in the 'node-exp' group, so we need to make sure that the
+# user that the scriabin cron job runs as is in that group
+- name: Ensure "node-exp" group exists
+  ansible.builtin.group:
+    name: node-exp
+    state: present
+
+- name: Ensure that user can write to textfile collector directory
+  user:
+    name: www-data
+    groups: node-exp
+    append: yes
