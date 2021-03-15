@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- bugfix: ensure that script user is in the right group to write to
+  the textfiles collector directory
+
 ### Added
 ### Changed
 ### Removed
