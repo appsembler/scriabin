@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Removed
 
+## [v2.0.0] - 2021-03-16
+
+### Removed
+- remove push to pushgateway functionality. Now that we are
+  consistently deploying node_exporter, the textfile collectors are
+  the preferred approach.
+
 ## [v1.0.1] - 2021-03-15
 
 ### Added
@@ -20,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - initial version. copied in from old `roles` repo.
 
-[Unreleased]: https://github.com/appsembler/scriabin/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/appsembler/scriabin/compare/v2.0.0...HEAD
+[v2.0.0]: https://github.com/appsembler/scriabin/compare/v1.0.1...v2.0.0
 [v1.0.1]: https://github.com/appsembler/scriabin/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/appsembler/scriabin/releases/tag/v1.0.0

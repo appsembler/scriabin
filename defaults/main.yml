@@ -2,12 +2,6 @@
 
 scriabin_project: '{{ COMMON_DEPLOYMENT|default("project") }}-{{ COMMON_RELEASE|default("release")}}-{{ COMMON_ENVIRONMENT|default("staging") }}'
 
-# we have `stage-pushgateway` and `pushgateway` setup, and we need to
-# map `staging` and `prod` to each of those respectively. This is the
-# best way I could figure out how to do it with just ansible/jinja2 filters:
-scriabin_prefix: "{{ COMMON_ENVIRONMENT|default('staging')|replace('prod', '')|replace('staging', 'stage-')}}"
-scriabin_pushgateway: "{{ scriabin_prefix }}pushgateway.infra.appsembler.com:9091"
-
 # requests that took longer than this many seconds are considered
 # "slow" for apdex calculation
 scriabin_slow_threshold: 0.4
